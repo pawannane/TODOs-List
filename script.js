@@ -33,7 +33,7 @@ function update() {
 
     itemJsonArray.forEach((element, index) => {
         str += `
-            <tr>
+            <tr class="tableRow">
             <th scope="row">${index + 1}</th>
             <td>${element[0]}</td>
             <td>${element[1]}</td> 
@@ -58,6 +58,7 @@ function deleted(itemIndex) {
     update();
 
 }
+
 function clearStorage() {
     if (confirm("Do you areally want to clear?")) {
         console.log('Clearing the storage')
@@ -65,3 +66,22 @@ function clearStorage() {
         update()
     }
 }
+
+let search = document.getElementById("searchTxt");
+
+search.addEventListener("input", function () {
+    let inputVal = search.value.toLowerCase();
+    //console.log('Input event fired!', inputVal);
+
+    let tableRow = document.getElementsByClassName('tableRow');
+    Array.from(tableRow).forEach(function (element) {
+        let TableTxt = element.getElementsByTagName("td")[0].innerText;
+        if (TableTxt.includes(inputVal)) {
+            element.style.display = "block";
+        }
+        else {
+            element.style.display = "none";
+        }
+        //console.log(TableTxt);
+    })
+})
